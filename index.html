@@ -61,7 +61,7 @@
 		.form-row {
 		    display: flex;
 		    gap: 10px;           /* 左右の入力欄のあいだの隙間 */
-		    margin-bottom: 10px; /* 下の段との隙間 */
+		    margin-bottom: 2px; /* 下の段との隙間 */
 		}
 
 		.form-row .form-group {
@@ -124,7 +124,7 @@
 <!--裏面について-->
 <div class="container" id="backScreen" style="display: none;">
     <div class="panel">
-        <div style="margin-bottom: -10px;">
+        <div style="margin-bottom: 0px;">
             <input type="file" id="backFaceInput" accept="image/*">
             <label for="backFaceInput" id="backFaceBtn" class="btn">📷 顔写真を選択</label>
         </div>
@@ -132,22 +132,27 @@
         <input type="text" id="backTitle" value="藤間中学校野球部選手カード2027" placeholder="例: 藤間中学校野球部選手カード2027">
         <div class="form-row">
  			<div class="form-group">
-        		<label>1. 名前</label><input type="text" id="backName" value="" placeholder="例: 坂本 勇人">
+        		<label style="display: block; margin-bottom: 3px;">1. 名前</label>
+        		<input type="text" id="backName" value="" placeholder="例: 大谷 翔平">
         	</div>
         <div class="form-group">
-        <label>2. ポジション</label><input type="text" id="backPosition" value="" placeholder="例: サード">
+        <label style="display: block; margin-bottom: 3px;">2. ポジション</label>
+        <input type="text" id="backPosition" value="" placeholder="例: サード">
         	</div>
         </div>
         <div class="form-row">
  			<div class="form-group">
-        		<label>3. 投打</label><input type="text" id="back投打" value="" placeholder="例: 右投右打">
+        		<label style="display: block; margin-bottom: 3px;">3. 投打</label>
+        		<input type="text" id="back投打" value="" placeholder="例: 右投右打">
         	</div>
         	<div class="form-group">
-        	<label>4. 身長体重</label><input type="text" id="backSize" value="" placeholder="例: 186cm / 86kg">
+        	<label style="display: block; margin-bottom: 3px;">4. 身長体重</label>
+        	<input type="text" id="backSize" value="" placeholder="例: 186cm / 86kg">
         	</div>
         </div>
         <div class="form-group">
-        <label>5. 生年月日</label><input type="text" id="backBirth" value="" placeholder="例: 1988年12月14日">        
+        <label style="display: block; margin-bottom: 3px;">5. 生年月日</label>
+        <input type="text" id="backBirth" value="" placeholder="例: 1988年12月14日">        
         </div>
         <label>✨ 座右の銘</label><input type="text" id="backMotto" value="" placeholder="好きな言葉や目標など">
         <label>💭 一番の思い出</label><textarea id="backMemory" placeholder=""></textarea>
