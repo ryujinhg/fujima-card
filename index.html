@@ -959,7 +959,12 @@ if (document.fonts && document.fonts.load) {
 }
 setTimeout(() => { drawFrontCard(); if(window.getComputedStyle(document.getElementById('backScreen')).display !== 'none') drawBackCard(); }, 2000);
 
-
+// 💡 スマホにアプリとして登録するおまじない
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log('アプリの準備ができたよ！'))
+    .catch((err) => console.log('エラー:', err));
+}
 
 </script>
 </body>
