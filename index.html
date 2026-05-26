@@ -966,6 +966,63 @@ if ('serviceWorker' in navigator) {
     .catch((err) => console.log('エラー:', err));
 }
 
+// ==========================================
+// ● オートセーブ機能（テキストデータ永続化）
+// ==========================================
+
+// 1. 保存対象のIDリスト
+const saveTargetIds = [
+    'playerName', 'teamKanji', 'teamEnglish', 'kanjiColorInput', 'kanjiStrokeColorInput',
+    'backTitle', 'backName', 'backPosition', 'back投打', 'backSize', 'backBirth', 'backMotto', 'backMemory'
+];
+
+// 2. 全データを一括保存する関数
+function saveAllData() {
+    const data = {};
+    saveTargetIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) data[id] = el.value;
+    });
+    localStorage.setItem('baseballCardTextData', JSON.stringify(data));
+}
+
+// 3. 全データを一括復元する関数
+function loadAllData() {
+    const saved = localStorage.getItem('baseballCardTextData');
+    if (!saved) return;
+    
+    try {
+        const data = JSON.parse(saved);
+        saveTargetIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && data[id] !== undefined) {
+                el.value = data[id];
+                // 入力欄を更新したことをブラウザに伝える
+                el.dispatchEvent(new Event('input'));
+            }
+        });
+        console.log('データ復元完了');
+    } catch (e) {
+        console.error('復元エラー:', e);
+    }
+}
+
+// 4. イベントの監視（既存の処理を邪魔せずに保存処理を追加）
+window.addEventListener('DOMContentLoaded', () => {
+    // 起動時にデータを読み込む
+    loadAllData();
+
+    // 各入力欄に「入力があれば保存」という処理を紐付ける
+    saveTargetIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', () => {
+                saveAllData();
+            });
+        }
+    });
+});
+
 </script>
 </body>
 </html>
