@@ -332,6 +332,7 @@
 <div class="container" id="menuScreen">
     <div class="menu-panel">
         <div class="menu-title">⚾ 野球カード作成アプリ 📝</div>
+	<button class="btn btn-main" style="background-color: #dc3545;" onclick="resetAllData()">⚠️ データをリセット</button>
         <button class="btn btn-main btn-back-main" onclick="showScreen('backScreen')">① 裏面を作成（画像出力可）</button>
         <button class="btn btn-main btn-front-main" onclick="showScreen('frontScreen')">② 表面を作成（画像出力可）</button>
         <div class="description-area">
@@ -1022,6 +1023,28 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// 全データを初期化する関数
+function resetAllData() {
+    if (!confirm('本当にすべてのデータをリセットしてもよろしいですか？（保存したデータは元に戻せません）')) {
+        return;
+    }
+
+    // 1. ローカルストレージを削除
+    localStorage.removeItem('baseballCardTextData');
+
+    // 2. 画面上の入力フォームを空にする
+    saveTargetIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = ''; // テキストを空に
+            el.dispatchEvent(new Event('input')); // 変更を通知してプレビューも更新
+        }
+    });
+
+    // 3. ユーザーへの通知（任意）
+    alert('すべてのデータを初期化しました。');
+}
 
 </script>
 </body>
