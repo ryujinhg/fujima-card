@@ -1024,6 +1024,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// 全データを初期化する関数
 function resetAllData() {
     if (!confirm('本当にすべてのデータをリセットしてもよろしいですか？（チーム名と裏面タイトルは残します）')) {
         return;
@@ -1032,7 +1033,7 @@ function resetAllData() {
     // 1. ローカルストレージ内のデータを一時退避
     const saved = localStorage.getItem('baseballCardTextData');
     let keepData = {};
-    const keepIds = ['teamKanji', 'teamEng', 'backTitle']; // ここで残すIDを管理
+    const keepIds = ['teamKanji', 'teamEng', 'backTitle']; // 残すIDリスト
     
     if (saved) {
         try {
@@ -1045,13 +1046,13 @@ function resetAllData() {
         }
     }
 
-    // 2. ローカルストレージを更新（一度消して、残したいものだけ保存）
+    // 2. ローカルストレージを更新（残したいデータのみ保存）
     localStorage.removeItem('baseballCardTextData');
     localStorage.setItem('baseballCardTextData', JSON.stringify(keepData));
 
-    // 3. 入力欄をクリア（keepIdsに含まれないものだけを空にする）
+    // 3. 入力欄をクリア（残さないものだけを空にする）
     saveTargetIds.forEach(id => {
-        if (keepIds.includes(id)) return; // 残す項目は処理をスキップ
+        if (keepIds.includes(id)) return; // 残すIDはスキップ
 
         const el = document.getElementById(id);
         if (el) {
