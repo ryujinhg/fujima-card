@@ -1065,24 +1065,7 @@ function resetAllData() {
     drawFrontCard();
     drawBackCard();
     alert('データのリセットが完了しました（一部項目は維持されました）。');
-}
-    // ----------------
-
-    // 画面上の入力欄のクリア処理も、除外するように変更
-    saveTargetIds.forEach(id => {
-        // 残したいIDなら処理をスキップする
-        if (id === 'teamKanji' || id === 'teamEng') return; 
-
-        const el = document.getElementById(id);
-        if (el) {
-            el.value = '';
-            el.dispatchEvent(new Event('input'));
-        }
-    });
-	
-    // 3. ユーザーへの通知（任意）
-    alert('すべてのデータを初期化しました。');
-}
+} // <-- ここで関数は終了です
 
 </script>
 </body>
