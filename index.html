@@ -1032,39 +1032,39 @@ function resetAllData() {
     // 1. ローカルストレージ内のデータを一時退避
     const saved = localStorage.getItem('baseballCardTextData');
     let keepData = {};
+    const keepIds = ['teamKanji', 'teamEng', 'backTitle']; // ここで残すIDを管理
     
     if (saved) {
         try {
             const data = JSON.parse(saved);
-            // 残したいデータを抽出（ID名は実際のコードに合わせてください）
-            // 例: inputTeamKanji, inputTeamEng, inputBackTitle のようなID名
-            const keepIds = ['teamKanji', 'teamEng', 'backTitle']; 
             keepIds.forEach(id => {
                 if (data[id] !== undefined) keepData[id] = data[id];
             });
         } catch (e) {
-            console.error(e);
+            console.error('データ解析エラー:', e);
         }
     }
 
-    // 2. 一度全削除して、残したいデータだけ再保存
+    // 2. ローカルストレージを更新（一度消して、残したいものだけ保存）
     localStorage.removeItem('baseballCardTextData');
     localStorage.setItem('baseballCardTextData', JSON.stringify(keepData));
 
-    // 3. 入力欄をクリア（残したい項目以外を空にする）
+    // 3. 入力欄をクリア（keepIdsに含まれないものだけを空にする）
     saveTargetIds.forEach(id => {
-        // ここで除外判定（保存対象かつ除外リストにないものだけ空にする）
-        const keepIds = ['teamKanji', 'teamEng', 'backTitle'];
-        if (keepIds.includes(id)) return;
+        if (keepIds.includes(id)) return; // 残す項目は処理をスキップ
 
         const el = document.getElementById(id);
         if (el) {
             el.value = '';
-            el.dispatchEvent(new Event('input'));
+            el.dispatchEvent(new Event('input')); // 再描画をトリガー
         }
     });
-        localStorage.setItem('baseballCardTextData', JSON.stringify(newData));
-    }
+
+    // 4. 再描画と通知
+    drawFrontCard();
+    drawBackCard();
+    alert('データのリセットが完了しました（一部項目は維持されました）。');
+}
     // ----------------
 
     // 画面上の入力欄のクリア処理も、除外するように変更
