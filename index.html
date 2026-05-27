@@ -1033,7 +1033,7 @@ function resetAllData() {
     // 1. ローカルストレージ内のデータを一時退避
     const saved = localStorage.getItem('baseballCardTextData');
     let keepData = {};
-    const keepIds = ['teamKanji', 'teamEng', 'backTitle']; // 残すIDリスト
+    const keepIds = ['teamKanji', 'teamEnglish','kanjiColorInput','kanjiColorInput', 'backTitle']; // 残すIDリスト
     
     if (saved) {
         try {
