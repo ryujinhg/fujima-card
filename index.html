@@ -387,24 +387,30 @@
         		<input type="text" id="backName" value="" placeholder="例: 大谷 翔平">
         	</div>
         	<div class="form-group">
-        		<label>2. ポジション</label>
-        		<input type="text" id="backPosition" value="" placeholder="例: ピッチャー">
+        		<label>2. ローマ字(ファイル名)</label>
+        		<input type="text" id="backRomanName" value="" placeholder="例: shohei otani">
         	</div>
         </div>
         <div class="form-row">
  			<div class="form-group">
-        		<label>3. 投打</label>
-        		<input type="text" id="back投打" value="" placeholder="例: 右投げ左打ち">
+        		<label>3. ポジション</label>
+        		<input type="text" id="backPosition" value="" placeholder="例: ピッチャー">
         	</div>
         	<div class="form-group">
-        		<label>4. 身長体重</label>
-        		<input type="text" id="backSize" value="" placeholder="例: 193cm / 95kg">
+        		<label>4. 投打</label>
+        		<input type="text" id="back投打" value="" placeholder="例: 右投げ左打ち">
         	</div>
         </div>
-        <div class="form-group">
-	        <label>5. 生年月日</label>
-	        <input type="text" id="backBirth" value="" placeholder="例: 1994年7月5日">        
-        </div>
+		<div class="form-row">
+		    <div class="form-group">
+		        <label>5. 身長体重</label>
+		        <input type="text" id="backSize" value="" placeholder="例: 193cm / 95kg">
+		    </div>
+		    <div class="form-group">
+		        <label>6. 生年月日</label>
+		        <input type="text" id="backBirth" value="" placeholder="例: 1994年7月5日">
+		    </div>
+		</div>
         <label>✨ 座右の銘</label><input type="text" id="backMotto" value="" placeholder="好きな言葉や目標など">
         <label>💭 一番の思い出</label><textarea id="backMemory" placeholder=""></textarea>
         <button class="btn btn-main btn-front-main" onclick="showScreen('frontScreen')">表面を作成</button>
@@ -555,7 +561,7 @@ logoInput.addEventListener('change', (e) => {
         reader.readAsDataURL(e.target.files[0]);
     }
 });
-
+//-----------------------------------表面の描画---------------------------------------------
 function drawFrontCard() {
     frontCanvas.width = 1575;
     frontCanvas.height = 2200;
@@ -615,6 +621,66 @@ function drawFrontCard() {
         frontCtx.fillStyle = kanjiColorInput.value; 
         frontCtx.fillText(engText, textBaseX, 2200 - 100);
         frontCtx.restore();
+    }
+}
+
+function drawFrontCardForZeamigoods(ctx) {
+    // 【解説】背景の白塗り(fillRect)は削除しています。これだけで背景透明になります。
+
+    if (frontFaceImg) {
+        // 1575x2200の範囲に合わせて画像を描画
+        ctx.drawImage(frontFaceImg, 0, 0, 1575, 2200); 
+    }
+    
+    const fontSize = 270; 
+    const nameText = inputName.value.trim();
+    if (nameText) {
+        ctx.save();
+        ctx.font = `${fontSize}px Black Ops One, sans-serif`; 
+        ctx.fillStyle = "#facc15";  
+        ctx.shadowColor = "rgba(0, 0, 0, 0.7)"; ctx.shadowBlur = 15;
+        ctx.shadowOffsetX = 5; ctx.shadowOffsetY = 5;
+        ctx.translate(80, 100); 
+        ctx.rotate(Math.PI / 2); 
+        ctx.fillText(nameText, 0, 0, 1900); 
+        ctx.restore();
+    }
+    
+    let logoSize = 250;
+    let logoX = 1575 - logoSize - 50; 
+    let logoY = 2200 - logoSize - 60; 
+    if (hasLogo && logoImg && logoImg.complete) {
+        ctx.save();
+        ctx.shadowColor = "#ffffff"; ctx.shadowBlur = 20;
+        ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
+        ctx.restore();
+    }
+    
+    let textBaseX = hasLogo ? logoX - 40 : 1525; 
+    const kanjiText = inputTeamKanji.value.trim();
+    if (kanjiText) {
+        ctx.save();
+        ctx.font = "italic bold 80px sans-serif"; 
+        ctx.textAlign = "right"; 
+        ctx.strokeStyle = kanjiStrokeColorInput.value;
+        ctx.lineWidth = 8;
+        ctx.strokeText(kanjiText, textBaseX, 2200 - 160);
+        ctx.fillStyle = kanjiColorInput.value; 
+        ctx.fillText(kanjiText, textBaseX, 2200 - 160);
+        ctx.restore();
+    }
+    
+    const engText = inputTeamEng.value.trim(); 
+    if (engText) {
+        ctx.save();
+        ctx.font = "italic bold 35px sans-serif"; 
+        ctx.textAlign = "right"; 
+        ctx.strokeStyle = kanjiStrokeColorInput.value;
+        ctx.lineWidth = 4;
+        ctx.strokeText(engText, textBaseX, 2200 - 100);
+        ctx.fillStyle = kanjiColorInput.value; 
+        ctx.fillText(engText, textBaseX, 2200 - 100);
+        ctx.restore();
     }
 }
 
@@ -731,6 +797,66 @@ function drawBackCard() {
         }
     });
 }
+//------------------------------------------------------------------------------------
+// 【新しい部品1：カードの絵を全部描く関数】
+function drawBackCardForZeamigoods(ctx) {
+    if (bgImg && bgImg.complete) {
+        ctx.drawImage(bgImg, 0, 0, 1575, 2200);
+    }
+    if (backFaceImg) {
+        ctx.drawImage(backFaceImg, 150, 700, 440, 550);
+    }
+    const centerX = 1575 / 2;
+    ctx.fillStyle = "#ffffff";
+    ctx.textBaseline = "alphabetic"; 
+    ctx.textAlign = "center";
+    ctx.font = "bold 78px sans-serif";
+    ctx.fillText(document.getElementById('backTitle').value, centerX, 105);
+    ctx.fillStyle = "#1a1a1a";
+    ctx.textAlign = "left";
+    ctx.font = "bold 70px sans-serif";
+    ctx.fillText("選手プロフィール", 660, 740);
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#4a3b32";
+    ctx.beginPath(); ctx.moveTo(660, 765); ctx.lineTo(1420, 765); ctx.stroke();
+    ctx.font = "bold 46px sans-serif";
+    ctx.fillText("1. 名前　　　　：" + document.getElementById('backName').value, 660, 840);
+    ctx.fillText("2. ポジション　：" + document.getElementById('backPosition').value, 660, 915);
+    ctx.fillText("3. 投打　　　　：" + document.getElementById('back投打').value, 660, 990);
+    ctx.fillText("4. 身長体重　　：" + document.getElementById('backSize').value, 660, 1065);
+    ctx.fillText("5. 生年月日　　：" + document.getElementById('backBirth').value, 660, 1140);
+    ctx.textAlign = "center";
+    ctx.font = "bold 70px sans-serif";
+    ctx.fillText("座右の銘", centerX, 1335);
+    let motto = document.getElementById('backMotto').value;
+    let fSize = 72;
+    ctx.font = "bold " + fSize + "px sans-serif";
+    while (ctx.measureText(motto).width > 1300 && fSize > 20) { fSize--; ctx.font = "bold " + fSize + "px sans-serif"; }
+    ctx.fillText(motto, centerX, 1480);
+    ctx.strokeStyle = "#1a1a1a"; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.roundRect(140, 1620, 344, 75, 15); ctx.stroke(); 
+    ctx.fillStyle = "#1a1a1a"; ctx.font = "bold 46px sans-serif";
+    ctx.fillText("一番の思い出", 305, 1673);
+    ctx.font = "normal 46px sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillStyle = "#1a1a1a";
+    const text = document.getElementById('backMemory').value;
+    let y = 1750;
+    const maxCharsPerLine = 28; 
+    const lineHeight = 70;      
+    const userLines = text.split('\n');
+    userLines.forEach(line => {
+        if (line.length === 0) { y += lineHeight; } else {
+            for (let i = 0; i < line.length; i += maxCharsPerLine) {
+                ctx.fillText(line.substr(i, maxCharsPerLine), 150, y);
+                y += lineHeight;
+            }
+        }
+    });
+}
+
+
 
 // ==========================================
 // ● 切り抜き（クロップ）共通ロジック
@@ -899,20 +1025,14 @@ confirmCropBtn.addEventListener('click', () => {
 // ==========================================
 // ● 各種ダウンロード保存処理群
 // ==========================================
-// ① 表面のみ保存
+// ① 表面のみ保存（zeamigoods用透過PNGに差し替え）
 downloadFrontBtn.addEventListener('click', () => {
-    const a = document.createElement('a');
-    a.href = frontCanvas.toDataURL('image/jpeg', 0.95);
-    a.download = 'card_front_' + Date.now() + '.jpg';
-    a.click();
+    saveFrontForZeamigoods();
 });
 
-// ② 裏面のみ保存
+// ② 裏面のみ保存（zeamigoods用透過PNGに差し替え）
 downloadBackBtn.addEventListener('click', () => {
-    const a = document.createElement('a');
-    a.href = backCanvas.toDataURL('image/jpeg', 0.95);
-    a.download = 'card_back_' + Date.now() + '.jpg';
-    a.click();
+    saveBackForZeamigoods(); //
 });
 
 // ③ ★L判ピッタリサイズ（3175×2225）で両面セットを保存
@@ -949,6 +1069,68 @@ document.getElementById('downloadCombinedBtnFront').addEventListener('click', ()
     a.download = 'card_L-size_print_' + Date.now() + '.jpg';
     a.click();
 });
+
+
+// zeamigoods入稿用：915x1259px (背景透明) で保存する関数---------------------------------
+// 【うら面用】
+function saveBackForZeamigoods() {
+    // 6番のローマ字入力欄からファイル名を作成
+    const rawName = document.getElementById('backRomanName').value.trim();
+    // 小文字変換 ＆ 空白をアンダースコアへ変換
+    const fileName = rawName.toLowerCase().replace(/\s+/g, '_') || 'back';
+    // 1. 台座の準備 (915x1259pxの透明キャンバス)
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = 915;
+    tempCanvas.height = 1259;
+    const ctx = tempCanvas.getContext('2d');
+
+    // 2. デザインを配置する計算
+    ctx.save();
+    ctx.translate(9, 3);
+    const scale = 897 / 1575;
+    ctx.scale(scale, scale);
+
+    // 3. 作品を描画
+    drawBackCardForZeamigoods(ctx);
+    ctx.restore();
+
+    // 4. ダウンロード処理
+    const link = document.createElement('a');
+    // 自動生成されたファイル名を利用
+    link.download = `${fileName}_ura.png`; 
+    link.href = tempCanvas.toDataURL('image/png');
+    link.click();
+}
+// 【おもて面用】
+function saveFrontForZeamigoods() {
+	// 表面の名前を取得（inputName から取得）
+    const rawName = document.getElementById('playerName').value.trim();
+    // 変換処理：小文字にして、スペースをアンダースコアに
+    const fileName = rawName.toLowerCase().replace(/\s+/g, '_') || 'front';
+    // 1. 台座の準備 (915x1259pxの透明キャンバス)
+    const targetW = 915;
+    const targetH = 1259;
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = targetW;
+    tempCanvas.height = targetH;
+    const ctx = tempCanvas.getContext('2d');
+
+    // 2. デザインを配置する計算
+    ctx.save();
+    ctx.translate(9, 3); 
+    const scale = 897 / 1575; 
+    ctx.scale(scale, scale);
+
+    // 3. 作品を描画
+    drawFrontCardForZeamigoods(ctx); 
+    ctx.restore();
+
+    // 4. ダウンロード処理
+    const link = document.createElement('a');
+    link.download = `${fileName}_omote.png`; // 例: shohei_otani_omote.png
+    link.href = tempCanvas.toDataURL('image/png');
+    link.click();
+}
 
 // ==========================================
 // ● フォントの強制ロード監視（お守り）
