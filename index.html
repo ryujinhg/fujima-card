@@ -406,8 +406,8 @@
         </div>
 		<div class="form-row">
 		    <div class="form-group">
-		        <label>5. 身長体重</label>
-		        <input type="text" id="backSize" value="" placeholder="例: 193cm / 95kg">
+		        <label>5. 身長</label>
+		        <input type="text" id="backSize" value="" placeholder="例: 193cm">
 		    </div>
 		    <div class="form-group">
 		        <label>6. 生年月日</label>
@@ -763,7 +763,7 @@ function drawBackCard() {
     backCtx.fillText("1. 名前　　　　　：" + document.getElementById('backName').value, 660, 840);
     backCtx.fillText("2. ポジション　：" + document.getElementById('backPosition').value, 660, 915);
     backCtx.fillText("3. 投打　　　　　：" + document.getElementById('back投打').value, 660, 990);
-    backCtx.fillText("4. 身長体重　　：" + document.getElementById('backSize').value, 660, 1065);
+    backCtx.fillText("4. 身長　　　　　：" + document.getElementById('backSize').value, 660, 1065);
     backCtx.fillText("5. 生年月日　　：" + document.getElementById('backBirth').value, 660, 1140);
     
     backCtx.textAlign = "center";
@@ -826,7 +826,7 @@ function drawBackCardForZeamigoods(ctx) {
     ctx.fillText("1. 名前　　　　：" + document.getElementById('backName').value, 660, 840);
     ctx.fillText("2. ポジション　：" + document.getElementById('backPosition').value, 660, 915);
     ctx.fillText("3. 投打　　　　：" + document.getElementById('back投打').value, 660, 990);
-    ctx.fillText("4. 身長体重　　：" + document.getElementById('backSize').value, 660, 1065);
+    ctx.fillText("4. 身長　　　　：" + document.getElementById('backSize').value, 660, 1065);
     ctx.fillText("5. 生年月日　　：" + document.getElementById('backBirth').value, 660, 1140);
     ctx.textAlign = "center";
     ctx.font = "bold 70px sans-serif";
