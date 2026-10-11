@@ -760,11 +760,36 @@ function drawBackCard() {
     backCtx.beginPath(); backCtx.moveTo(660, 765); backCtx.lineTo(1420, 765); backCtx.stroke();
     
     backCtx.font = "bold 46px sans-serif";
-    backCtx.fillText("1. 名前　　　　：" + document.getElementById('back1').value, 660, 840);
-    backCtx.fillText("2. 生年月日　　：" + document.getElementById('back2').value, 660, 915);
-    backCtx.fillText("3. 特技　　　　：" + document.getElementById('back3').value, 660, 990);
-    backCtx.fillText("4. 推しキャラ　：" + document.getElementById('back4').value, 660, 1065);
-    backCtx.fillText("5. ヒミツ　　　：" + document.getElementById('back5').value, 660, 1140);
+	// X座標の基準位置
+    const labelX = 660;   // 項目名のスタート位置
+    const colonX = 990;   // 「：」を固定する位置
+    const valueX = 1040;  // 入力値のスタート位置
+
+    // 1. 名前
+    backCtx.textAlign = "left";
+    backCtx.fillText("1. 名前", labelX, 840);
+    backCtx.fillText("：", colonX, 840);
+    backCtx.fillText(document.getElementById('back1').value, valueX, 840);
+
+    // 2. 生年月日
+    backCtx.fillText("2. 生年月日", labelX, 915);
+    backCtx.fillText("：", colonX, 915);
+    backCtx.fillText(document.getElementById('back2').value, valueX, 915);
+
+    // 3. 特技
+    backCtx.fillText("3. 特技", labelX, 990);
+    backCtx.fillText("：", colonX, 990);
+    backCtx.fillText(document.getElementById('back3').value, valueX, 990);
+
+    // 4. 推しキャラ
+    backCtx.fillText("4. 推しキャラ", labelX, 1065);
+    backCtx.fillText("：", colonX, 1065);
+    backCtx.fillText(document.getElementById('back4').value, valueX, 1065);
+
+    // 5. ヒミツ
+    backCtx.fillText("5. ヒミツ", labelX, 1140);
+    backCtx.fillText("：", colonX, 1140);
+    backCtx.fillText(document.getElementById('back5').value, valueX, 1140);
     
     backCtx.textAlign = "center";
     backCtx.font = "bold 70px sans-serif";
@@ -823,11 +848,35 @@ function drawBackCardForZeamigoods(ctx) {
     ctx.strokeStyle = "#4a3b32";
     ctx.beginPath(); ctx.moveTo(660, 765); ctx.lineTo(1420, 765); ctx.stroke();
     ctx.font = "bold 46px sans-serif";
-    ctx.fillText("1. 名前　　　　：" + document.getElementById('back1').value, 660, 840);
-    ctx.fillText("2. 生年月日　　：" + document.getElementById('back2').value, 660, 915);
-    ctx.fillText("3. 特技　　　　：" + document.getElementById('back3').value, 660, 990);
-    ctx.fillText("4. 推しキャラ　：" + document.getElementById('back4').value, 660, 1065);
-    ctx.fillText("5. ヒミツ　　　：" + document.getElementById('back5').value, 660, 1140);
+	const labelX = 660;   // 項目名のスタート位置
+    const colonX = 990;   // 「：」を固定する位置
+    const valueX = 1040;  // 入力値のスタート位置
+
+    // 1. 名前
+    ctx.textAlign = "left";
+    ctx.fillText("1. 名前", labelX, 840);
+    ctx.fillText("：", colonX, 840);
+    ctx.fillText(document.getElementById('back1').value, valueX, 840);
+
+    // 2. 生年月日
+    ctx.fillText("2. 生年月日", labelX, 915);
+    ctx.fillText("：", colonX, 915);
+    ctx.fillText(document.getElementById('back2').value, valueX, 915);
+
+    // 3. 特技
+    ctx.fillText("3. 特技", labelX, 990);
+    ctx.fillText("：", colonX, 990);
+    ctx.fillText(document.getElementById('back3').value, valueX, 990);
+
+    // 4. 推しキャラ
+    ctx.fillText("4. 推しキャラ", labelX, 1065);
+    ctx.fillText("：", colonX, 1065);
+    ctx.fillText(document.getElementById('back4').value, valueX, 1065);
+
+    // 5. ヒミツ
+    ctx.fillText("5. ヒミツ", labelX, 1140);
+    ctx.fillText("：", colonX, 1140);
+    ctx.fillText(document.getElementById('back5').value, valueX, 1140);
     ctx.textAlign = "center";
     ctx.font = "bold 70px sans-serif";
     ctx.fillText("座右の銘", centerX, 1335);
