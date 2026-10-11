@@ -254,7 +254,25 @@
 		    gap: 15px;
 		    margin-top: 5px;
 		}
-		
+		/* プロフィール見出し（3〜6）の編集用カスタムスタイル */
+		.editable-label {
+		    border: none;
+		    background: transparent;
+		    font-weight: bold;
+		    font-size: 13px;
+		    color: #333;
+		    width: 80%;
+		    padding: 2px 4px;
+		    border-radius: 3px;
+		    outline: none;
+		}
+		.editable-label:hover {
+		    background: rgba(0, 0, 0, 0.05); /* ホバー時にうっすら色を変えて編集できることをわかりやすく */
+		}
+		.editable-label:focus {
+		    background: #fff;
+		    border: 1px solid #4169E1; /* クリックした時だけしっかりした入力枠を表示 */
+		}
 		/* --- 切り抜きモーダル内の専用スタイル --- */
 		
 		/* 画像切り抜き（クロップ）モーダルの外枠スタイル */
@@ -394,23 +412,23 @@
         		<input type="text" id="backRomanName" value="" placeholder="例: shohei otani">
         	</div>
         </div>
-        <div class="form-row">
- 			<div class="form-group">
-        		<label>3. 生年月日</label>
-        		<input type="text" id="back2" value="" placeholder="例: 1994年7月5日">
-        	</div>
-        	<div class="form-group">
-        		<label>4. 特技</label>
-        		<input type="text" id="back3" value="" placeholder="例: これが得意">
-        	</div>
-        </div>
 		<div class="form-row">
 		    <div class="form-group">
-		        <label>5. 推しキャラ</label>
+		        <label>3. <input type="text" id="backLabel3" value="生年月日" class="editable-label"></label>
+		        <input type="text" id="back2" value="" placeholder="例: 1994年7月5日">
+		    </div>
+		    <div class="form-group">
+		        <label>4. <input type="text" id="backLabel4" value="特技" class="editable-label"></label>
+		        <input type="text" id="back3" value="" placeholder="例: これが得意">
+		    </div>
+		</div>
+		<div class="form-row">
+		    <div class="form-group">
+		        <label>5. <input type="text" id="backLabel5" value="推しキャラ" class="editable-label"></label>
 		        <input type="text" id="back4" value="" placeholder="例: 推せる">
 		    </div>
 		    <div class="form-group">
-		        <label>6. ヒミツ</label>
+		        <label>6. <input type="text" id="backLabel6" value="ヒミツ" class="editable-label"></label>
 		        <input type="text" id="back5" value="" placeholder="例: ヒミツ">
 		    </div>
 		</div>
@@ -705,7 +723,7 @@ bgImg.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYAAANwCAYAAACieidQA
 bgImg.onload = () => drawBackCard();
 
 // 裏面入力連動
-const backInputs = ['backTitle', 'back1', 'back2', 'back3', 'back5', 'back4', 'backMotto', 'backMemory'];
+const backInputs = ['backTitle', 'back1', 'back2', 'back3', 'back5', 'back4', 'backMotto', 'backMemory','backLabel3', 'backLabel4', 'backLabel5', 'backLabel6'];
 backInputs.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -759,12 +777,17 @@ function drawBackCard() {
     backCtx.strokeStyle = "#4a3b32";
     backCtx.beginPath(); backCtx.moveTo(660, 765); backCtx.lineTo(1420, 765); backCtx.stroke();
     
+	const label3 = document.getElementById('backLabel3').value || '生年月日';
+    const label4 = document.getElementById('backLabel4').value || '特技';
+    const label5 = document.getElementById('backLabel5').value || '推しキャラ';
+    const label6 = document.getElementById('backLabel6').value || 'ヒミツ';
+
     backCtx.font = "bold 46px sans-serif";
-    backCtx.fillText("1. 名前　　　　：" + document.getElementById('back1').value, 660, 840);
-    backCtx.fillText("2. 生年月日　　：" + document.getElementById('back2').value, 660, 915);
-    backCtx.fillText("3. 特技　　　　：" + document.getElementById('back3').value, 660, 990);
-    backCtx.fillText("4. 推しキャラ　：" + document.getElementById('back4').value, 660, 1065);
-    backCtx.fillText("5. ヒミツ　　　：" + document.getElementById('back5').value, 660, 1140);
+    backCtx.fillText("1. 名前     ：" + document.getElementById('back1').value, 660, 840);
+    backCtx.fillText("2. 生年月日  ：" + document.getElementById('back2').value, 660, 915); // ※2番は固定
+    backCtx.fillText(`3. ${label3.padEnd(6, ' ')}：` + document.getElementById('back3').value, 660, 990);
+    backCtx.fillText(`4. ${label4.padEnd(6, ' ')}：` + document.getElementById('back4').value, 660, 1065);
+    backCtx.fillText(`5. ${label5.padEnd(6, ' ')}：` + document.getElementById('back5').value, 660, 1140);
     
     backCtx.textAlign = "center";
     backCtx.font = "bold 70px sans-serif";
@@ -822,12 +845,12 @@ function drawBackCardForZeamigoods(ctx) {
     ctx.lineWidth = 4;
     ctx.strokeStyle = "#4a3b32";
     ctx.beginPath(); ctx.moveTo(660, 765); ctx.lineTo(1420, 765); ctx.stroke();
-    ctx.font = "bold 46px sans-serif";
-    ctx.fillText("1. 名前　　　　：" + document.getElementById('back1').value, 660, 840);
-    ctx.fillText("2. 生年月日　　：" + document.getElementById('back2').value, 660, 915);
-    ctx.fillText("3. 特技　　　　：" + document.getElementById('back3').value, 660, 990);
-    ctx.fillText("4. 推しキャラ　：" + document.getElementById('back4').value, 660, 1065);
-    ctx.fillText("5. ヒミツ　　　：" + document.getElementById('back5').value, 660, 1140);
+	Ctx.font = "bold 46px sans-serif";
+    Ctx.fillText("1. 名前     ：" + document.getElementById('back1').value, 660, 840);
+    Ctx.fillText("2. 生年月日  ：" + document.getElementById('back2').value, 660, 915); // ※2番は固定
+    Ctx.fillText(`3. ${label3.padEnd(6, ' ')}：` + document.getElementById('back3').value, 660, 990);
+    Ctx.fillText(`4. ${label4.padEnd(6, ' ')}：` + document.getElementById('back4').value, 660, 1065);
+    Ctx.fillText(`5. ${label5.padEnd(6, ' ')}：` + document.getElementById('back5').value, 660, 1140);
     ctx.textAlign = "center";
     ctx.font = "bold 70px sans-serif";
     ctx.fillText("座右の銘", centerX, 1335);
@@ -1160,6 +1183,7 @@ if ('serviceWorker' in navigator) {
 const saveTargetIds = [
     'playerName', 'teamKanji', 'teamEnglish', 'kanjiColorInput', 'kanjiStrokeColorInput',
     'backTitle', 'back1', 'back2', 'back3', 'back4', 'back5', 'backMotto', 'backMemory'
+	'backLabel3', 'backLabel4', 'backLabel5', 'backLabel6'
 ];
 
 // 2. 全データを一括保存する関数
