@@ -387,7 +387,7 @@
         <div class="form-row">
  			<div class="form-group">
         		<label>1. 名前</label>
-        		<input type="text" id="backName" value="" placeholder="例: 大谷 翔平">
+        		<input type="text" id="back1" value="" placeholder="例: 大谷 翔平">
         	</div>
         	<div class="form-group">
         		<label>2. ローマ字(ファイル名)</label>
@@ -396,22 +396,22 @@
         </div>
         <div class="form-row">
  			<div class="form-group">
-        		<label>3. ポジション</label>
-        		<input type="text" id="backPosition" value="" placeholder="例: ピッチャー">
+        		<label>3. 生年月日</label>
+        		<input type="text" id="back2" value="" placeholder="例: 1994年7月5日">
         	</div>
         	<div class="form-group">
-        		<label>4. 投打</label>
-        		<input type="text" id="back投打" value="" placeholder="例: 右投げ左打ち">
+        		<label>4. 特技</label>
+        		<input type="text" id="back3" value="" placeholder="例: これが得意">
         	</div>
         </div>
 		<div class="form-row">
 		    <div class="form-group">
-		        <label>5. 身長</label>
-		        <input type="text" id="backSize" value="" placeholder="例: 193cm">
+		        <label>5. 推しキャラ</label>
+		        <input type="text" id="back4" value="" placeholder="例: 推せる">
 		    </div>
 		    <div class="form-group">
-		        <label>6. 生年月日</label>
-		        <input type="text" id="backBirth" value="" placeholder="例: 1994年7月5日">
+		        <label>6. ヒミツ</label>
+		        <input type="text" id="back5" value="" placeholder="例: ヒミツ">
 		    </div>
 		</div>
         <label>✨ 座右の銘</label><input type="text" id="backMotto" value="" placeholder="好きな言葉や目標など">
@@ -705,7 +705,7 @@ bgImg.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnYAAANwCAYAAACieidQA
 bgImg.onload = () => drawBackCard();
 
 // 裏面入力連動
-const backInputs = ['backTitle', 'backName', 'backPosition', 'back投打', 'backBirth', 'backSize', 'backMotto', 'backMemory'];
+const backInputs = ['backTitle', 'back1', 'back2', 'back3', 'back5', 'back4', 'backMotto', 'backMemory'];
 backInputs.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -760,11 +760,11 @@ function drawBackCard() {
     backCtx.beginPath(); backCtx.moveTo(660, 765); backCtx.lineTo(1420, 765); backCtx.stroke();
     
     backCtx.font = "bold 46px sans-serif";
-    backCtx.fillText("1. 名前　　　　　：" + document.getElementById('backName').value, 660, 840);
-    backCtx.fillText("2. ポジション　：" + document.getElementById('backPosition').value, 660, 915);
-    backCtx.fillText("3. 投打　　　　　：" + document.getElementById('back投打').value, 660, 990);
-    backCtx.fillText("4. 身長　　　　　：" + document.getElementById('backSize').value, 660, 1065);
-    backCtx.fillText("5. 生年月日　　：" + document.getElementById('backBirth').value, 660, 1140);
+    backCtx.fillText("1. 名前　　　　　：" + document.getElementById('back1').value, 660, 840);
+    backCtx.fillText("2. 生年月日　　：" + document.getElementById('back2').value, 660, 915);
+    backCtx.fillText("3. 特技　　　　　：" + document.getElementById('back3').value, 660, 990);
+    backCtx.fillText("4. 推しキャラ　：" + document.getElementById('back4').value, 660, 1065);
+    backCtx.fillText("5. ヒミツ　　　：" + document.getElementById('back5').value, 660, 1140);
     
     backCtx.textAlign = "center";
     backCtx.font = "bold 70px sans-serif";
@@ -823,11 +823,11 @@ function drawBackCardForZeamigoods(ctx) {
     ctx.strokeStyle = "#4a3b32";
     ctx.beginPath(); ctx.moveTo(660, 765); ctx.lineTo(1420, 765); ctx.stroke();
     ctx.font = "bold 46px sans-serif";
-    ctx.fillText("1. 名前　　　　　：" + document.getElementById('backName').value, 660, 840);
-    ctx.fillText("2. ポジション　：" + document.getElementById('backPosition').value, 660, 915);
-    ctx.fillText("3. 投打　　　　　：" + document.getElementById('back投打').value, 660, 990);
-    ctx.fillText("4. 身長　　　　　：" + document.getElementById('backSize').value, 660, 1065);
-    ctx.fillText("5. 生年月日　　：" + document.getElementById('backBirth').value, 660, 1140);
+    ctx.fillText("1. 名前　　　　　：" + document.getElementById('back1').value, 660, 840);
+    ctx.fillText("2. 生年月日　　：" + document.getElementById('back2').value, 660, 915);
+    ctx.fillText("3. 特技　　　　　：" + document.getElementById('back3').value, 660, 990);
+    ctx.fillText("4. 推しキャラ　：" + document.getElementById('back4').value, 660, 1065);
+    ctx.fillText("5. ヒミツ　　　：" + document.getElementById('back5').value, 660, 1140);
     ctx.textAlign = "center";
     ctx.font = "bold 70px sans-serif";
     ctx.fillText("座右の銘", centerX, 1335);
@@ -1159,7 +1159,7 @@ if ('serviceWorker' in navigator) {
 // 1. 保存対象のIDリスト
 const saveTargetIds = [
     'playerName', 'teamKanji', 'teamEnglish', 'kanjiColorInput', 'kanjiStrokeColorInput',
-    'backTitle', 'backName', 'backPosition', 'back投打', 'backSize', 'backBirth', 'backMotto', 'backMemory'
+    'backTitle', 'back1', 'back2', 'back3', 'back4', 'back5', 'backMotto', 'backMemory'
 ];
 
 // 2. 全データを一括保存する関数
